@@ -47,6 +47,41 @@ loadi(15,28);
 loadi(8,21);
 loadi(9,22);
 
+// INT 9
+
+loadi(20,33);
+loadi(21,34);
+
+// MODULE 1
+
+loadi(42,55);
+loadi(43,56);
+
+// MODULE 2
+
+loadi(44,57);
+loadi(45,58);
+
+// Inode Table
+
+loadi(59,3);
+loadi(60,4);
+
+alias counter R0;
+counter = 76;
+while(counter <= 82) do
+	[MEMORY_FREE_LIST + counter] = 1;
+	counter = counter + 1;
+endwhile;
+
+while(counter <= 127) do
+	[MEMORY_FREE_LIST + counter] = 0;
+	counter = counter + 1;
+endwhile;
+
+[SYSTEM_STATUS_TABLE + 3] = 0;
+[SYSTEM_STATUS_TABLE + 2] = 127 - 82;
+
 //Terminal status table's STATUS field is set to 0
 [TERMINAL_STATUS_TABLE+0]=0;
 
@@ -147,8 +182,7 @@ PTLR = 10;
 // //Setting entry point for exec
 // [86*512] = [83*512 + 1];
 
-//Initialize all states as terminated except for the first 3
-alias counter R0;
+//Initialize all states as terminated except for the first 2
 counter = 2;
 while(counter <= 15) do
   [PROCESS_TABLE + (counter * 16) + 4] = TERMINATED;
