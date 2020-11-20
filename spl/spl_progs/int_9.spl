@@ -37,6 +37,15 @@ alias userPageNum R4;
 userPageNum = [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1]*16 + 11];
 [MEMORY_FREE_LIST + userPageNum] = [MEMORY_FREE_LIST + userPageNum] + 1;
 [SYSTEM_STATUS_TABLE + 2] = [SYSTEM_STATUS_TABLE + 2] - 1;
+
+//Setting the Per-Process resource table
+alias perProcessCounter R5;
+perProcessCounter = 0;
+while (perProcessCounter < 8) do
+    [userPageNum * 512 + RESOURCE_TABLE_OFFSET + perProcessCounter] = -1;
+    perProcessCounter = perProcessCounter + 2;
+endwhile;
+
 SP = userPageNum*512 - 1;
 [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1]*16 + 4] = RUNNING;
 [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1]*16 + 7] = counter;
@@ -79,45 +88,30 @@ call MOD_2;
 
 multipop(R0,R1,R2,R3,R4);
 
-if([INODE_TABLE + 16*counter + 8]!=-1) then
-	multipush(R0,R1,R2,R3,R4);
-	R1 = 1;
-	call MOD_2;
-	[PTBR+8] = R0;
-	[PTBR+9] = "0100";
-	loadi(R0,[INODE_TABLE + counter*16 + 8]);
-	multipop(R0,R1,R2,R3,R4);
-endif;
+alias iter R7;
+alias entry R8;
+iter = 8;
+entry = 8;
 
-if([INODE_TABLE + 16*counter + 9]!=-1) then
-	multipush(R0,R1,R2,R3,R4);
-	R1 = 1;
-	call MOD_2;
-	[PTBR+10] = R0;
-	[PTBR+11] = "0100";
-	loadi(R0,[INODE_TABLE + counter*16 + 9]);
-	multipop(R0,R1,R2,R3,R4);
-endif;
+while (iter<12) do
+	if([INODE_TABLE + 16*counter + iter]!=-1) then
+		multipush(R0,R1,R2,R3,R4,R7,R8);
+		R1 = 1;
+		call MOD_2;
+		[PTBR+entry] = R0;
+		[PTBR+entry+1] = "0100";
+		// Invoking Disk Load function of Device Manager
+		R1 = 2;
+		R2 = [SYSTEM_STATUS_TABLE + 1];
+		R3 = R0;
+		R4 = [INODE_TABLE + counter*16 + iter];
+		call MOD_4;
+		multipop(R0,R1,R2,R3,R4,R7,R8);
+	endif;
+	iter = iter + 1;
+	entry = entry + 2;
+endwhile;
 
-if([INODE_TABLE + 16*counter + 10]!=-1) then
-	multipush(R0,R1,R2,R3,R4);
-	R1 = 1;
-	call MOD_2;
-	[PTBR+12] = R0;
-	[PTBR+13] = "0100";
-	loadi(R0,[INODE_TABLE + counter*16 + 10]);
-	multipop(R0,R1,R2,R3,R4);
-endif;
-
-if([INODE_TABLE + 16*counter + 11]!=-1) then
-	multipush(R0,R1,R2,R3,R4);
-	R1 = 1;
-	call MOD_2;
-	[PTBR+14] = R0;
-	[PTBR+15] = "0100";
-	loadi(R0,[INODE_TABLE + counter*16 + 11]);
-	multipop(R0,R1,R2,R3,R4);
-endif;
 
 [[PTBR + 16]*512] = [[PTBR + 8]*512 + 1];
 [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1] * 16 + 9] = 0;

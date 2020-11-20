@@ -23,7 +23,7 @@ if(funcNum == 1) then
 			endif;
 			freeCounter = freeCounter+1;
 	endwhile;
-	breakpoint;
+	//breakpoint;
 	return;
 endif;
 
@@ -41,6 +41,6 @@ if(funcNum == 2) then
         endif;
         pidCounter = pidCounter + 1;
     endwhile;
-		breakpoint;
+		//breakpoint;
 	return;
 endif;
