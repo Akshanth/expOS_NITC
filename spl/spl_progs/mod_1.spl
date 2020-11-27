@@ -1,6 +1,8 @@
+//process manager module
 alias funcNum R1;
 alias currPID R2;
 
+//free user area page
 if(funcNum == 2) then
 	multipush(R1,R2);
 	R1 = 2;
@@ -10,6 +12,7 @@ if(funcNum == 2) then
 	return;
 endif;
 
+//exit process
 if(funcNum == 3) then
 	multipush(R1,R2);
 	R1 = 4;
@@ -25,25 +28,50 @@ if(funcNum == 3) then
 	return;
 endif;
 
+//free page table
 if(funcNum == 4) then
-	PTBR = PAGE_TABLE_BASE + currPID*20;
+	//invalidate library page
 	[PTBR + 0] = -1;
 	[PTBR + 1] = "0000";
 	[PTBR + 2] = -1;
 	[PTBR + 3] = "0000";
-	alias counter R3;
-	counter = 4;
-	while(counter<=18) do
-		if([PTBR + counter] != -1) then
-			multipush(R1,R2,R3);
-			R1 = 2;
-			R2 = [PTBR + counter];
-			call MOD_2;
-			multipop(R1,R2,R3);
-			[PTBR + counter] = -1;
-			[PTBR + counter+1] = "0000";
+
+	alias iter R3;
+	iter = 4;
+	//free all other page table entries
+	while(iter < 20) do
+			if([PTBR + iter] != -1) then
+					multipush(R1, R2, R3);
+					R1 = 2;
+					R2 = [PTBR + iter];
+					call MOD_2;
+					multipop(R1, R2, R3);
+					[PTBR + iter]=-1;
+					[PTBR + iter + 1]="0000";
+			endif;
+			iter = iter + 2;
+	endwhile;
+
+	//Invalidate disk map table
+	alias blockNum R4;
+	iter = 2;
+	[DISK_MAP_TABLE + 10*currPID ] = -1;
+	[DISK_MAP_TABLE + 10*currPID + 1] = -1;
+	while(iter < 10) do
+		// if heap of stack release the block
+		if(iter < 4 && iter > 7) then
+				blockNum = [DISK_MAP_TABLE + 10*currPID + iter];
+				if(blockNum!=-1) then
+					multipush(R1, R2, R3, R4);
+					R1 = 4;
+					R2 = blockNum;
+					R3 = currPID;
+					call MOD_2;
+					multipop(R1, R2, R3, R4);
+				endif;				
 		endif;
-		counter = counter + 2;
+		[DISK_MAP_TABLE + 10*currPID + iter] = -1;
+		iter = iter + 1;
 	endwhile;
 	return;
 endif;

@@ -1,8 +1,10 @@
+//device manager module
 alias functionNum R1;
 alias currentPID R2;
 alias pageNum R3;
 alias blockNum R4;
 
+//disk load
 if(functionNum==2)
 then
     multipush(R1, R2, R3, R4);
@@ -21,6 +23,7 @@ then
     return;
 endif; 		
 
+//terminal write
 if(functionNum==3)
 then
     multipush(R1, R2, R3);
@@ -37,6 +40,7 @@ then
     return;
 endif; 
 
+//terminal read
 if(functionNum==4)
 then
     multipush(R1, R2, R3);
