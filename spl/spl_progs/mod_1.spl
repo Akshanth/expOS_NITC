@@ -2,6 +2,27 @@
 alias funcNum R1;
 alias currPID R2;
 
+//get PCB entry
+if(funcNum == 1) then
+	alias indexCounter R7;
+	indexCounter = 0;
+	while(indexCounter < 16) do
+		if([PROCESS_TABLE + indexCounter*16 + 4] == TERMINATED) then
+			break;
+		endif;
+		indexCounter = indexCounter + 1;
+	endwhile;
+	if(indexCounter == 16) then
+		R0 = -1;
+		return;
+	endif;
+	[PROCESS_TABLE + indexCounter*16 + 4] = ALLOCATED;
+	[PROCESS_TABLE + indexCounter*16 + 1] = indexCounter;
+	[PROCESS_TABLE + indexCounter*16 + 14] = PAGE_TABLE_BASE + indexCounter*20;
+	[PROCESS_TABLE + indexCounter*16 + 15] = 10;
+	R0 = indexCounter;
+	return;
+endif;
 //free user area page
 if(funcNum == 2) then
 	multipush(R1,R2);
@@ -64,8 +85,8 @@ if(funcNum == 4) then
 				if(blockNum!=-1) then
 					multipush(R1, R2, R3, R4);
 					R1 = 4;
-					R2 = blockNum;
 					R3 = currPID;
+					R2 = blockNum;
 					call MOD_2;
 					multipop(R1, R2, R3, R4);
 				endif;				

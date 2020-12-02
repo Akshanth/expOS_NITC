@@ -42,7 +42,7 @@ userPageNum = [PROCESS_TABLE + [SYSTEM_STATUS_TABLE + 1]*16 + 11];
 //Setting the Per-Process resource table
 alias perProcessCounter R5;
 perProcessCounter = 0;
-while (perProcessCounter < 8) do
+while (perProcessCounter < 16) do
     [userPageNum * 512 + RESOURCE_TABLE_OFFSET + perProcessCounter] = -1;
     perProcessCounter = perProcessCounter + 2;
 endwhile;
