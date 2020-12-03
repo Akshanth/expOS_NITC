@@ -35,6 +35,20 @@ endif;
 
 //exit process
 if(funcNum == 3) then
+	if ([PROCESS_TABLE + (currPID * 16) + 9] != 9) then
+		alias pidIter R3;
+		pidIter = 1;
+		while (pidIter < 16) do
+			if ([PROCESS_TABLE + (pidIter * 16) + 4] == WAIT_PROCESS && [PROCESS_TABLE + (pidIter * 16) + 5] == currPID) then
+				[PROCESS_TABLE + (pidIter * 16) + 4] = READY;
+				[PROCESS_TABLE + (pidIter * 16) + 5] = -1;
+			endif;
+			if ([PROCESS_TABLE + (pidIter * 16) + 2] == currPID) then
+				[PROCESS_TABLE + (pidIter * 16) + 2] = -1;
+			endif;
+			pidIter = pidIter + 1;
+		endwhile;
+	endif;
 	multipush(R1,R2);
 	R1 = 4;
 	R2 = currPID;

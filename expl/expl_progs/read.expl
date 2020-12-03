@@ -1,13 +1,13 @@
 int main()
 {
 decl
-	int a,num,temp;
+	int a,num,tem;
 enddecl
 begin
 	num=10;
-	temp = exposcall("Write",-2,num);
-	temp = exposcall("Read",-1,a);
-	temp = exposcall("Write",-2,a);
+	tem = exposcall("Read",-1,a);
+	tem = exposcall("Write",-2,"Here");
+	tem = exposcall("Write",-2,a);
 	return 0;
 end
 }
