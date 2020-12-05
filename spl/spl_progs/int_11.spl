@@ -33,7 +33,7 @@ if(sysCallNum == 13) then
 	pid = [[PTBR + 2*(userSP - 4)/512]*512 + (userSP-4)%512];
 	//check if pid is valid
 	if((pid == currentPID) || (pid < 0) || (pid > 15) || ([PROCESS_TABLE + 16*pid + 4] == TERMINATED)) then
-		[[PTBR + ((userSP - 1)/512)] * 512 + ((userSP - 1)%512)] = -1;
+		[[PTBR + 2*((userSP - 1)/512)] * 512 + ((userSP - 1)%512)] = -1;
 		[proTable + 9] = 0;
 		SP = [proTable + 13];
 		ireturn;

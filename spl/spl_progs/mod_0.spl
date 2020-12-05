@@ -40,9 +40,11 @@ then
         [TERMINAL_STATUS_TABLE+0]=0;
         alias counter R6;
         counter=1;
-        while (counter<16&&[PROCESS_TABLE+counter*16+4]==WAIT_TERMINAL) do
-            [PROCESS_TABLE+counter*16+4]=READY;   
-            counter = counter + 1;         
+        while (counter<16) do
+					if([PROCESS_TABLE+counter*16+4]==WAIT_TERMINAL) then
+						[PROCESS_TABLE+counter*16+4]=READY;          
+					endif;
+					counter = counter + 1;  
         endwhile;
         R0=0;
         return;

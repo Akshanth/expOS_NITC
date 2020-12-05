@@ -112,7 +112,7 @@ bubble.xsm
 -1
 3
 read.xsm
-194
+158
 0
 -1
 -1

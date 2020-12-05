@@ -6,7 +6,6 @@ enddecl
 begin
 	num=10;
 	tem = exposcall("Read",-1,a);
-	tem = exposcall("Write",-2,"Here");
 	tem = exposcall("Write",-2,a);
 	return 0;
 end
