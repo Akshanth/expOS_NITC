@@ -88,6 +88,14 @@ loadi(25, 38);
 loadi(32, 45);
 loadi(33, 46);
 
+// INT 13
+loadi(28, 41);
+loadi(29, 42);
+
+// INT 14
+loadi(30, 43);
+loadi(31, 44);
+
 [DISK_STATUS_TABLE] = 0;
 
 alias counter R0;
@@ -217,6 +225,15 @@ while (perProcessCounter < 16) do
     perProcessCounter = perProcessCounter + 2;
 endwhile;
 
+// Initializing Semaphore Table
+alias index R0;
+index = 0;
+while(index < 32) do
+    [SEMAPHORE_TABLE + 4 * index] = -1;
+    [SEMAPHORE_TABLE + 4 * index + 1] = 0;
+    index = index + 1;
+endwhile;
+
 //Setting entry point for init
 [76*512] = [65*512 + 1];
 
@@ -224,6 +241,7 @@ endwhile;
 // [86*512] = [83*512 + 1];
 
 //Initialize all states as terminated except for the first 2
+alias counter R0;
 counter = 2;
 while(counter <= 15) do
   [PROCESS_TABLE + (counter * 16) + 4] = TERMINATED;
