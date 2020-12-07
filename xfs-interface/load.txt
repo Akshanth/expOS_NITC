@@ -4,6 +4,7 @@ load --library $HOME/myexpos/expl/library.lib
 load --int=timer $HOME/myexpos/spl/spl_progs/sample_timer.xsm
 load --int=console $HOME/myexpos/spl/spl_progs/console_int.xsm
 load --int=disk $HOME/myexpos/spl/spl_progs/disk_int.xsm
+load --int=4 $HOME/myexpos/spl/spl_progs/int_4.xsm
 load --int=6 $HOME/myexpos/spl/spl_progs/int_6.xsm
 load --int=7 $HOME/myexpos/spl/spl_progs/sample_int7.xsm
 load --int=8 $HOME/myexpos/spl/spl_progs/int_8.xsm
@@ -29,6 +30,10 @@ load --exec $HOME/myexpos/expl/expl_progs/gcd.xsm
 load --exec $HOME/myexpos/expl/expl_progs/bubble.xsm
 load --exec $HOME/myexpos/expl/expl_progs/read.xsm
 load --exec $HOME/myexpos/expl/expl_progs/r_w.xsm
+load --exec $HOME/myexpos/expl/expl_progs/create.xsm
+load --exec $HOME/myexpos/expl/expl_progs/delete.xsm
+load --exec $HOME/myexpos/expl/expl_progs/repeat.xsm
+load --exec $HOME/myexpos/expl/expl_progs/pid.xsm
 load --exec $HOME/myexpos/expl/expl_progs/smsort.xsm
 load --exec $HOME/myexpos/expl/expl_progs/l_list.xsm
 load --exec $HOME/myexpos/expl/expl_progs/parent.xsm

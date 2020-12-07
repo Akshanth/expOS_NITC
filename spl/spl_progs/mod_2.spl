@@ -96,7 +96,7 @@ if(funcNum == 5) then
 endif;
 
 //release block
-if(funcNum == RELEASE_BLOCK) then
+if(funcNum == 4) then
     alias blockNum R2;
     [DISK_FREE_LIST + blockNum] = [DISK_FREE_LIST + blockNum] - 1;
     return;
