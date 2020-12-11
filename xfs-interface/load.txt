@@ -1,12 +1,13 @@
 fdisk
 load --exhandler $HOME/myexpos/spl/spl_progs/exception_handler.xsm
 load --library $HOME/myexpos/expl/library.lib
-load --int=timer $HOME/myexpos/spl/spl_progs/sample_timer.xsm
-load --int=console $HOME/myexpos/spl/spl_progs/console_int.xsm
-load --int=disk $HOME/myexpos/spl/spl_progs/disk_int.xsm
+load --int=timer $HOME/myexpos/spl/spl_progs/int_timer.xsm
+load --int=console $HOME/myexpos/spl/spl_progs/int_console.xsm
+load --int=disk $HOME/myexpos/spl/spl_progs/int_disk.xsm
 load --int=4 $HOME/myexpos/spl/spl_progs/int_4.xsm
+load --int=5 $HOME/myexpos/spl/spl_progs/int_5.xsm
 load --int=6 $HOME/myexpos/spl/spl_progs/int_6.xsm
-load --int=7 $HOME/myexpos/spl/spl_progs/sample_int7.xsm
+load --int=7 $HOME/myexpos/spl/spl_progs/int_7.xsm
 load --int=8 $HOME/myexpos/spl/spl_progs/int_8.xsm
 load --int=9 $HOME/myexpos/spl/spl_progs/int_9.xsm
 load --int=10 $HOME/myexpos/spl/spl_progs/int_10.xsm
@@ -17,11 +18,14 @@ load --int=15 $HOME/myexpos/spl/spl_progs/int_15.xsm
 load --module 0 $HOME/myexpos/spl/spl_progs/mod_0.xsm
 load --module 1 $HOME/myexpos/spl/spl_progs/mod_1.xsm
 load --module 2 $HOME/myexpos/spl/spl_progs/mod_2.xsm
+load --module 3 $HOME/myexpos/spl/spl_progs/mod_3.xsm
 load --module 4 $HOME/myexpos/spl/spl_progs/mod_4.xsm
 load --module 5 $HOME/myexpos/spl/spl_progs/mod_5.xsm
-load --module 7 $HOME/myexpos/spl/spl_progs/boot_module.xsm
+load --module 7 $HOME/myexpos/spl/spl_progs/mod_7.xsm
 load --os $HOME/myexpos/spl/spl_progs/os_startup.xsm
 load --idle $HOME/myexpos/expl/expl_progs/idle.xsm
+load --data $HOME/myexpos/expl/expl_progs/sample.dat
+load --data $HOME/myexpos/expl/expl_progs/num.dat
 load --exec $HOME/myexpos/expl/expl_progs/add.xsm
 load --exec $HOME/myexpos/expl/expl_progs/even.xsm
 load --exec $HOME/myexpos/expl/expl_progs/hello.xsm
@@ -38,5 +42,8 @@ load --exec $HOME/myexpos/expl/expl_progs/smsort.xsm
 load --exec $HOME/myexpos/expl/expl_progs/l_list.xsm
 load --exec $HOME/myexpos/expl/expl_progs/parent.xsm
 load --exec $HOME/myexpos/expl/expl_progs/child.xsm
+load --exec $HOME/myexpos/expl/expl_progs/fork.xsm
+load --exec $HOME/myexpos/expl/expl_progs/f_read.xsm
+load --exec $HOME/myexpos/expl/expl_progs/content.xsm
 load --init $HOME/myexpos/expl/expl_progs/shell_version_2.xsm
 dump --inodeusertable

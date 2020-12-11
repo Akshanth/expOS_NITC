@@ -150,7 +150,7 @@ if(sysCallNum==4) then
 	//invalidate root file entry
 	[ROOT_FILE + 8*iter ] = -1;
 
-	//release the lcok
+	//release the lock
 	multipush(R1,R2,R3,R4,R5,R6,R7,R8,R9);
 	R1 = 5;
 	R2 = iter;

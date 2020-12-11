@@ -21,7 +21,7 @@ if(sysCallNum==17) then
 	endwhile;
 	if(Counter==16) then
 		[[PTBR + 2*((userSP - 1)/512)] * 512 + ((userSP - 1)%512)] = -1;
-	[proTable + 9] = 0;
+		[proTable + 9] = 0;
 	SP = [proTable + 13];
 	ireturn;
 	endif;
@@ -34,7 +34,7 @@ if(sysCallNum==17) then
 	alias index R6;
 	index = R0;
 	if (index==-1) then
-			[[PTBR + 2*((userSP - 1)/512)] * 512 + ((userSP - 1)%512)] = -2;
+	[[PTBR + 2*((userSP - 1)/512)] * 512 + ((userSP - 1)%512)] = -2;
 	[proTable + 9] = 0;
 	SP = [proTable + 13];
 	ireturn;       
