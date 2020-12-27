@@ -45,5 +45,8 @@ load --exec $HOME/myexpos/expl/expl_progs/child.xsm
 load --exec $HOME/myexpos/expl/expl_progs/fork.xsm
 load --exec $HOME/myexpos/expl/expl_progs/f_read.xsm
 load --exec $HOME/myexpos/expl/expl_progs/content.xsm
+load --exec $HOME/myexpos/expl/expl_progs/rev.xsm
+load --exec $HOME/myexpos/expl/expl_progs/revadd.xsm
+load --exec $HOME/myexpos/expl/expl_progs/testrw.xsm
 load --init $HOME/myexpos/expl/expl_progs/shell_version_2.xsm
 dump --inodeusertable

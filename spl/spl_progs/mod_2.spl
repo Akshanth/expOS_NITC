@@ -47,6 +47,30 @@ if(funcNum == 2) then
 	return;
 endif;
 
+//get free block
+if(funcNum == 3) then
+	alias blockIter R3;
+	blockIter = DISK_FREE_AREA;		
+	// find a free entry in DISK FREE LIST	
+	while(blockIter < DISK_SWAP_AREA) do
+		if([DISK_FREE_LIST + blockIter] == 0) then
+			[DISK_FREE_LIST + blockIter] = 1;
+			R0 = blockIter;
+			return;
+		endif;
+		blockIter = blockIter + 1;
+	endwhile;	
+	R0 = -1;
+	return;
+endif;
+
+//release block
+if(funcNum == 4) then
+    alias blockNum R2;
+    [DISK_FREE_LIST + blockNum] = [DISK_FREE_LIST + blockNum] - 1;
+    return;
+endif;
+
 //get code page
 if(funcNum == 5) then
 	alias blockNum R2;
@@ -93,11 +117,4 @@ if(funcNum == 5) then
 	//return loaded page number
 	R0 = pageNum;
 	return;
-endif;
-
-//release block
-if(funcNum == 4) then
-    alias blockNum R2;
-    [DISK_FREE_LIST + blockNum] = [DISK_FREE_LIST + blockNum] - 1;
-    return;
 endif;
